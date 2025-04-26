@@ -43,7 +43,6 @@ jobs:
 
     - name: Run tests
       run: |
-      run: |
         docker run --network host --rm \
           ${{ env.IMAGE_NAME }}:latest \
           sh -c "python -m pytest tests/"
