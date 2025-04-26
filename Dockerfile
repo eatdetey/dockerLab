@@ -2,7 +2,7 @@ FROM  tiangolo/uvicorn-gunicorn-fastapi:python3.11-slim AS builder
 
 WORKDIR /app
 
-RUN pip install .[test]
+RUN pip install ".[test]"
 
 COPY . ./app
 
