@@ -7,6 +7,8 @@ COPY . .
 
 RUN pip install .
 
+RUN pip install ".[test]"
+
 FROM tiangolo/uvicorn-gunicorn-fastapi:python3.11-slim
 
 WORKDIR /app
