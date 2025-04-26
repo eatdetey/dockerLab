@@ -3,11 +3,16 @@ FROM tiangolo/uvicorn-gunicorn-fastapi:python3.11-slim AS builder
 WORKDIR /app
 
 COPY pyproject.toml ./
+
 COPY . .
 
 RUN pip install .
 
-RUN pip install ".[test]"
+ARG TEST_PROFILE=false
+
+RUN if [ "$TEST_PROFILE" = "true" ]; then \
+        pip install ".[test]"; \
+    fi
 
 FROM tiangolo/uvicorn-gunicorn-fastapi:python3.11-slim
 
