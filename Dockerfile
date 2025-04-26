@@ -1,17 +1,19 @@
-FROM  tiangolo/uvicorn-gunicorn-fastapi:python3.11-slim AS builder
+FROM tiangolo/uvicorn-gunicorn-fastapi:python3.11-slim AS builder
 
 WORKDIR /app
 
-RUN pip install ".[test]"
+COPY pyproject.toml ./
+COPY . .
 
-COPY . ./app
+RUN pip install .
 
 FROM tiangolo/uvicorn-gunicorn-fastapi:python3.11-slim
 
 WORKDIR /app
 
-COPY --from=builder ./app ./app
+COPY --from=builder /usr/local/lib/python3.11/site-packages /usr/local/lib/python3.11/site-packages
+COPY --from=builder /app /app
 
-EXPOSE 8051
+EXPOSE 8111
 
-CMD ["sh", "-c", "uvicorn src.main:app --reload"]
+CMD ["sh", "-c", "uvicorn src.main:app --host 127.0.0.1 --port 8051"]
