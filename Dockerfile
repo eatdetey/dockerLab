@@ -1,4 +1,4 @@
-FROM  tiangolo/uvicorn-gunicorn-fastapi:python3.9-slim AS builder
+FROM  tiangolo/uvicorn-gunicorn-fastapi:python3.11-slim AS builder
 
 WORKDIR /app
 
@@ -6,7 +6,7 @@ RUN pip install .[test]
 
 COPY . ./app
 
-FROM tiangolo/uvicorn-gunicorn-fastapi:python3.9-slim
+FROM tiangolo/uvicorn-gunicorn-fastapi:python3.11-slim
 
 WORKDIR /app
 
